@@ -1,0 +1,24 @@
+#!/usr/bin/ruby
+ 
+# Dropzone Destination Info
+# Name: Diff files with Kaleidoscope
+# Description: You can diff files with dragging them 
+# Handles: NSFilenamesPboardType
+# Events: dragged
+# Creator: Elliot Betancourt
+# URL: http://twitter.com/ebetan
+# IconURL: http://elliotbetancourt.com/wall/kaleidoscope.png
+
+def dragged
+	$dz.begin("Opening Kaleidoscope...")
+
+	unless $items.size == 2
+		$dz.finish("You must drag two files!")
+		$dz.url(false)
+		exit
+	end
+
+	system('/usr/local/bin/ksdiff', $items.first, $items.last)
+
+	$dz.url(false)
+end
